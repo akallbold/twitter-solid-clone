@@ -32,7 +32,9 @@ function Feed() {
             />
           ))}
       </FlipMove>
-      <FlipMove>{friends && friends.map((friend) => <p>{friend}</p>)}</FlipMove>
+      <FlipMove>
+        {friends && friends.map((friend) => <p>{friend.handle}</p>)}
+      </FlipMove>
     </div>
   );
 }

@@ -123,6 +123,8 @@ const useUser = (props) => {
     podRootIri,
     tweetDataset,
     tweetDatasetIri,
+    setFriendDataset,
+    setTweetDataset,
   };
 };
 

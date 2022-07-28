@@ -27,14 +27,15 @@ const usePosts = () => {
           let friendTweets = [];
           friends.forEach(async (friendThing) => {
             if (friendThing.dataUrl) {
-              // TODO handle if tweet dataset is 403 - if friends dont have a twitterdataset
+              console.log();
+              // TODO handle if tweet dataset is 403 - if friends dont have a twitterdataset or you don't have access
               // TODO getUrlOfFriendTweetDataset() we are hardcoding for now - can I get storage from webId profile (pim:storage)
-              const friendTweetDataset = await getSolidDataset(
-                friendThing.dataUrl,
-                { fetch }
-              );
-              friendTweets = convertTweetDatasetToJSObjects(friendTweetDataset);
-              console.log({ friendTweets });
+              // const friendTweetDataset = await getSolidDataset(
+              //   friendThing.dataUrl,
+              //   { fetch }
+              // );
+              // friendTweets = convertTweetDatasetToJSObjects(friendTweetDataset);
+              // console.log({ friendTweets });
             }
           });
           setTimeout(() => {
