@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useSession } from "@inrupt/solid-ui-react";
 import { fetch } from "@inrupt/solid-client-authn-browser";
-import { getProfileImage } from "./utils";
+import useFriends from "./useFriends";
 
-const useRequests = (props) => {
+const useRequests = () => {
   const { session } = useSession();
   const [requests, setRequests] = useState();
+  const friendDataset = useFriends();
 
   const requestShape = JSON.stringify({
     verifiableCredential: {
@@ -35,14 +36,14 @@ const useRequests = (props) => {
           .then((response) => {
             if (response.status >= 200 && response.status <= 299) {
               return response.json();
-            } else {
-              return `Returned response status of:  ${response.status}`;
             }
+            return `Returned response status of:  ${response.status}`;
           })
           .then((data) => {
             if (data) {
               console.log("IN REQUEST", { data });
-              setRequests(data["verifiableCredential"]);
+              const vcString = "verifiableCredential";
+              setRequests(data[vcString]);
             }
           })
           .catch((error) => {

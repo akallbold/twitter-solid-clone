@@ -18,7 +18,7 @@ const useFriends = () => {
           // });
           // const friendObjects = convertFriendThingsToJSObjects(dataset);
           // console.log("friendHOok", { dataset, friendObjects });
-          // setFriends(friendObjects);
+          setFriends([]);
         } catch (e) {
           console.log(e);
         }

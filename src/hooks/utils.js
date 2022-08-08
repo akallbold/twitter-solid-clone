@@ -10,9 +10,7 @@ import {
 import { SCHEMA_INRUPT } from "@inrupt/vocab-common-rdf";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 
-const getImageURL = (string) => {
-  return string.slice(0, -11) + "image.png";
-};
+const getImageURL = (string) => `${string.slice(0, -11)}image.png`;
 
 export const convertFriendThingsToJSObjects = (friendDataset) => {
   const output = [];
@@ -50,13 +48,12 @@ export const convertTweetDatasetToJSObjects = (tweetDataset) => {
   return output;
 };
 
-export const sortTweetsByDate = (tweetArray) => {
-  return tweetArray.sort(function (a, b) {
+export const sortTweetsByDate = (tweetArray) =>
+  tweetArray.sort((a, b) => {
     if (a.date < b.date) return 1;
     if (a.date > b.date) return -1;
     return 0;
   });
-};
 
 export const getProfileImage = async (url, callback) => {
   try {
