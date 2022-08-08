@@ -1,14 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { SessionProvider } from "@inrupt/solid-ui-react";
-import { WebsocketNotification } from "@inrupt/solid-client-notifications";
-import {
-  createContainerAt,
-  createSolidDataset,
-  getFile,
-  getPodUrlAll,
-  getSolidDataset,
-  saveSolidDatasetAt,
-} from "@inrupt/solid-client";
+import { useEffect, useState } from "react";
 import { useSession } from "@inrupt/solid-ui-react";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 import { getProfileImage } from "./utils";

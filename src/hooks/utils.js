@@ -10,6 +10,10 @@ import {
 import { SCHEMA_INRUPT } from "@inrupt/vocab-common-rdf";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 
+const getImageURL = (string) => {
+  return string.slice(0, -11) + "image.png";
+};
+
 export const convertFriendThingsToJSObjects = (friendDataset) => {
   const output = [];
   const things = getThingAll(friendDataset);
@@ -64,8 +68,4 @@ export const getProfileImage = async (url, callback) => {
   } catch (e) {
     console.log(e);
   }
-};
-
-const getImageURL = (string) => {
-  return string.slice(0, -11) + "image.png";
 };

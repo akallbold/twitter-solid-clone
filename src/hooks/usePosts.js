@@ -24,7 +24,7 @@ const usePosts = () => {
           const myTweets = convertTweetDatasetToJSObjects(dataset);
           console.log({ myTweets });
 
-          let friendTweets = [];
+          const friendTweets = [];
           friends.forEach(async (friendThing) => {
             if (friendThing.dataUrl) {
               console.log();

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./TweetBox.css";
 import { Avatar, Button } from "@material-ui/core";
 import {
   addBoolean,
@@ -12,11 +11,12 @@ import {
   setThing,
 } from "@inrupt/solid-client";
 import { fetch } from "@inrupt/solid-client-authn-browser";
-import useUser from "./hooks/useUser";
 import { SCHEMA_INRUPT } from "@inrupt/vocab-common-rdf";
 import { v4 as uuidv4 } from "uuid";
 import { useSession } from "@inrupt/solid-ui-react";
 import { Cancel } from "@material-ui/icons";
+import useUser from "./hooks/useUser";
+import "./TweetBox.css";
 
 function TweetBox() {
   const [tweetMessage, setTweetMessage] = useState("");
@@ -26,7 +26,7 @@ function TweetBox() {
     useUser();
 
   const createTweetThing = () => {
-    //TODO dynamically get the name
+    // TODO dynamically get the name
     const name =
       session.info.webId === "https://id.inrupt.com/akbprod12"
         ? "akbprod12"
@@ -76,7 +76,6 @@ function TweetBox() {
 
   const deleteDataset = async () => {
     try {
-      debugger;
       await deleteSolidDataset(tweetDatasetIri, {
         fetch,
       });

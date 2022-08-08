@@ -1,7 +1,5 @@
 import React from "react";
-import "./Sidebar.css";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import SidebarOption from "./SidebarOption";
+// import TwitterIcon from "@material-ui/icons/Twitter";
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
 import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
@@ -13,6 +11,9 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import { Button } from "@material-ui/core";
 import { useSession } from "@inrupt/solid-ui-react";
 import { login, logout } from "@inrupt/solid-client-authn-browser";
+import { oidcIssuer, clientName } from "./constants";
+import SidebarOption from "./SidebarOption";
+import "./Sidebar.css";
 
 function Sidebar() {
   const { session } = useSession();
@@ -25,34 +26,30 @@ function Sidebar() {
           fullWidth
           onClick={() =>
             login({
-              oidcIssuer: "https://login.inrupt.com/",
-              clientName: "Solid Twitter",
+              oidcIssuer,
+              clientName,
             })
           }
         >
           Login to Pod
         </Button>
       );
-    } else {
-      return (
-        <>
-          <Button
-            variant="outlined"
-            className="sidebar__tweet"
-            fullWidth
-            onClick={() => logout()}
-          >
-            Logout of {session.info.webId}
-          </Button>
-          {/* <p>Logged in as </p> */}
-        </>
-      );
     }
+    return (
+      <Button
+        variant="outlined"
+        className="sidebar__tweet"
+        fullWidth
+        onClick={() => logout()}
+      >
+        Logout of {session.info.webId}
+      </Button>
+    );
   };
 
   return (
     <div className="sidebar">
-      <TwitterIcon className="sidebar__twitterIcon" />
+      <img className="sidebar__twitterIcon" src="solid.png" alt="solid logo" />
       {authButton(session)}
       <SidebarOption active Icon={HomeIcon} text="Home" />
       <SidebarOption Icon={SearchIcon} text="Explore" />
@@ -62,10 +59,6 @@ function Sidebar() {
       <SidebarOption Icon={ListAltIcon} text="Lists" />
       <SidebarOption Icon={PermIdentityIcon} text="Profile" />
       <SidebarOption Icon={MoreHorizIcon} text="More" />
-
-      <Button variant="outlined" className="sidebar__tweet" fullWidth>
-        Tweet
-      </Button>
     </div>
   );
 }

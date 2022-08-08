@@ -9,17 +9,16 @@ import {
 import { useSession } from "@inrupt/solid-ui-react";
 import { fetch } from "@inrupt/solid-client-authn-browser";
 
-const useUser = (props) => {
+const useUser = () => {
   const { session } = useSession();
   const [podRootIri, setPodRootIri] = React.useState("");
   const [containerIri, setContainerIri] = useState("");
   const [tweetDatasetIri, setTweetDatasetIri] = useState("");
   const [friendDatasetIri, setFriendDatasetIri] = useState("");
-  // const [notifications, setNotifications] = useState([]);
   const [tweetDataset, setTweetDataset] = useState(null);
   const [friendDataset, setFriendDataset] = useState(null);
 
-  const avatarURL = containerIri + "image.png";
+  const avatarURL = `${containerIri}image.png`;
 
   const getPodAddress = async (webId) => {
     try {
@@ -29,6 +28,7 @@ const useUser = (props) => {
     } catch (e) {
       console.log(e);
     }
+    return "";
   };
 
   const createContainer = async (containerAddress) => {
@@ -41,6 +41,7 @@ const useUser = (props) => {
       if (e.statusCode !== 412) console.log(e);
       setContainerIri(containerAddress);
     }
+    return null;
   };
 
   const createTweetDataset = async (datasetIri) => {
@@ -58,11 +59,13 @@ const useUser = (props) => {
           });
           setTweetDatasetIri(datasetIri);
           setTweetDataset(savedDataset);
-        } catch (e) {
-          console.log(e);
+        } catch (err) {
+          console.log(err);
         }
+        return "";
       }
     }
+    return "";
   };
 
   const createFriendDataset = async (datasetIri) => {
@@ -80,11 +83,12 @@ const useUser = (props) => {
           });
           setFriendDatasetIri(datasetIri);
           setFriendDataset(savedDataset);
-        } catch (e) {
-          console.log(e);
+        } catch (err) {
+          console.log(err);
         }
       }
     }
+    return "";
   };
 
   useEffect(() => {
@@ -100,20 +104,6 @@ const useUser = (props) => {
       initialSetup();
     }
   }, [session.info.isLoggedIn, session.info.webId]);
-
-  // useEffect(() => {
-  //   if (session.info.isLoggedIn && tweetDatasetIri && friendDatasetIri) {
-  //     const websocket = new WebsocketNotification(tweetDatasetIri, { fetch });
-  //     websocket.on('message', (d) => {
-  //       setNotifications([...notifications, JSON.parse(d)]);
-  //       console.log('message', JSON.parse(d));
-  //     });
-  //     websocket.connect();
-  //     return () => {
-  //       websocket.disconnect();
-  //     };
-  //   }
-  // }, [tweetDatasetIri, friendDatasetIri]);
 
   return {
     avatarURL,

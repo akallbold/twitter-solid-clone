@@ -2,7 +2,6 @@ import React from "react";
 import "./Feed.css";
 import TweetBox from "./TweetBox";
 import Post from "./Post";
-import FlipMove from "react-flip-move";
 import usePosts from "./hooks/usePosts";
 import useFriends from "./hooks/useFriends";
 
@@ -18,23 +17,20 @@ function Feed() {
 
       <TweetBox />
 
-      <FlipMove>
-        {posts &&
-          posts.map((post) => (
-            <Post
-              key={post.text}
-              displayName={post.displayName}
-              username={post.username}
-              verified={post.verified}
-              text={post.text}
-              avatar={post.avatar}
-              image={post.image}
-            />
-          ))}
-      </FlipMove>
-      <FlipMove>
-        {friends && friends.map((friend) => <p>{friend.handle}</p>)}
-      </FlipMove>
+      {posts &&
+        posts.map((post) => (
+          <Post
+            key={post.text}
+            displayName={post.displayName}
+            username={post.username}
+            verified={post.verified}
+            text={post.text}
+            avatar={post.avatar}
+            image={post.image}
+          />
+        ))}
+
+      {friends && friends.map((friend) => <p>{friend.handle}</p>)}
     </div>
   );
 }

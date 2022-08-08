@@ -1,13 +1,6 @@
 import React, { useState } from "react";
-import "./Widgets.css";
-import {
-  TwitterTimelineEmbed,
-  TwitterShareButton,
-  TwitterTweetEmbed,
-} from "react-twitter-embed";
 import SearchIcon from "@material-ui/icons/Search";
 import { Button } from "@material-ui/core";
-import useUser from "./hooks/useUser";
 import { useSession } from "@inrupt/solid-ui-react";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -18,20 +11,16 @@ import {
   createThing,
   saveSolidDatasetAt,
   setThing,
-  getProfileAll,
   getPodUrlAll,
   deleteSolidDataset,
 } from "@inrupt/solid-client";
-import {
-  getAccessApiEndpoint,
-  issueAccessRequest,
-  redirectToAccessManagementUi,
-} from "@inrupt/solid-client-access-grants";
+import { issueAccessRequest } from "@inrupt/solid-client-access-grants";
 import { fetch } from "@inrupt/solid-client-authn-browser";
-
 import { SCHEMA_INRUPT } from "@inrupt/vocab-common-rdf";
 import { Cancel } from "@material-ui/icons";
-import { clientID, clientSecret, oidcIssuer } from "./constants";
+import useUser from "./hooks/useUser";
+import "./Widgets.css";
+
 function Widgets() {
   const { friendDataset, setFriendDataset, friendDatasetIri } = useUser();
   const [friendText, setFriendText] = useState("");
@@ -71,54 +60,39 @@ function Widgets() {
         fetch,
       });
       setFriendDataset(updatedDataset);
+      return null;
     } catch (e) {
       console.log(e);
+      return null;
     }
   };
 
   const createAccessGrant = async () => {
     // TODO
-    console.log({ friendText });
     const podsUrls = await getPodUrlAll(friendText, { fetch });
     const podAddress = podsUrls[0];
-    console.log({ podsUrls, podAddress });
-    const datasetAddress = podAddress + "Solid_Twitter/twitterData";
+    const datasetAddress = `${podAddress}Solid_Twitter/twitterData`;
     console.log(
       `I want to access this dataset ${datasetAddress} from this webId ${friendText}`
     );
-    let accessExpiration = new Date(Date.now() + 1555 * 60000);
+    const accessExpiration = new Date(Date.now() + 1555 * 60000);
     try {
       const requestVC = await issueAccessRequest(
         {
           access: { read: true },
           resources: [datasetAddress],
-          //   resources: [
-          //     "https://storage.inrupt.com/97cfd0be-a46a-4da3-908c-ad6ea602d37b/CRUD_Module/",
-          //   ],
+
           resourceOwner: friendText,
-          //   resourceOwner: "https://id.inrupt.com/docsteam12",
           expirationDate: accessExpiration,
           purpose: ["https://example.com/purposes#view_profile"],
         },
-        { fetch } // From the requestor's (i.e., ExamplePrinter's) authenticated session
+        { fetch }
       );
       console.log({ requestVC });
       return requestVC;
     } catch (e) {
       console.log(e);
     }
-
-    // how do I know if I have a friend request (access grant)?
-    // is there a way to know when an AG has been accepted? only then trigger adding friend to dataset
-
-    // do we need this?
-    // await session.login({
-    //   clientId: env.clientId,
-    //   clientSecret: env.clientSecret,
-    //   oidcIssuer: env.oidcIssuer.href,
-    //   // Note that using a Bearer token is mandatory for the UMA access token to be valid.
-    //   tokenType: "Bearer",
-    // });
   };
 
   const addFriend = async () => {
@@ -153,19 +127,6 @@ function Widgets() {
 
       <div className="widgets__widgetContainer">
         <h2>What's happening</h2>
-
-        <TwitterTweetEmbed tweetId={"1399787983209996289"} />
-
-        <TwitterTimelineEmbed
-          sourceType="profile"
-          screenName="BarackObama"
-          options={{ height: 400 }}
-        />
-
-        <TwitterShareButton
-          url={"https://twitter.com/BarackObama"}
-          options={{ text: "#barackObama", via: "barackObama" }}
-        />
       </div>
     </div>
   );

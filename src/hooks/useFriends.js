@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import { getSolidDataset } from "@inrupt/solid-client";
 import { useSession } from "@inrupt/solid-ui-react";
-import { fetch } from "@inrupt/solid-client-authn-browser";
-import { convertFriendThingsToJSObjects } from "./utils";
 import useUser from "./useUser";
 
 const useFriends = () => {
