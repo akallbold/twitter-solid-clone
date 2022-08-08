@@ -1,15 +1,16 @@
-# Twitter Clone with ReactJS
+# FreeBird
 
-You can send a simple tweet in this app.
+Twitter clone using Solid.
 
-## Twitter Clone Demo Link
+## Twitter Clone Glitch Link
 
-<a href="https://twitter-clone-1bd6b.web.app/">click me</a> for demo.
+<a href="https://pentagonal-potent-orangutan.glitch.me/">click me</a>.
 
 ## Topics
 
 - Material UI
+- React Flip Move
 
 ## Author
 
-Mert Çankaya
+Mert Çankaya & Anna Kallenborn-Bolden
